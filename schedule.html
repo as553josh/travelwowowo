@@ -1,0 +1,598 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   
+</head>
+<style>
+    /* Lazy Load Styles */
+.card-image {
+	display: block;
+	min-height: 20rem; /* layout hack */
+	background: #fff center center no-repeat;
+	background-size: cover;
+
+}
+
+.card-image > img {
+	display: block;
+	width: 100%;
+	opacity: 0; /* visually hide the img element */
+}
+
+.card-image.is-loaded {
+	filter: none; /* remove the blur on fullres image */
+
+}
+
+
+
+
+/* Layout Styles */
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	font-size: 16px;
+	font-family: sans-serif;
+  /* background-image: url(back2.jpg); */
+}
+
+.card-list {
+	display: block;
+	margin: 1rem auto;
+	padding: 0;
+	font-size: 0;
+	text-align: center;
+	list-style: none;
+}
+
+.card {
+	display: inline-block;
+	width: 90%;
+	max-width: 20rem;
+	margin: 1rem;
+	font-size: 1rem;
+	text-decoration: none;
+	overflow: hidden;
+	box-shadow: 0 0 3rem -1rem rgba(0,0,0,0.5);
+	transition: transform 0.1s ease-in-out, box-shadow 0.1s;
+}
+
+.card:hover {
+	transform: translateY(-0.5rem) scale(1.0125);
+	box-shadow: 0 0.5em 3rem -1rem rgba(0,0,0,0.5);
+  
+}
+
+.card-description {
+	display: block;
+	padding: 1em 0.5em;
+	color: #333333;
+	text-decoration: none;
+}
+
+.card:hover .card-description {
+color: RGB(251, 206, 0);
+}
+
+.card-description > h2 {
+	margin: 0 0 0.5em;
+}
+
+.card-description > p {
+	margin: 0;
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+nav {
+  position: fixed;
+  width: 100%;
+  background-color: #89925e;
+  min-height: 2em;
+}
+
+ul {
+  width: 100%;
+  text-align: center;
+}
+
+li {
+  list-style: none;
+  display: inline-block;
+
+}
+
+a {
+  text-decoration: none;
+  font-family: 'roboto';
+  font-size: 1.1rem;
+  color: azure;
+  text-transform: uppercase;
+}
+
+ul li:hover {
+  background: rgb(8, 8, 8);
+  transition: all 0.3s ease-in-out;
+}
+
+.toggle {
+  width: 100%;
+  font-size: 2rem;
+  text-align: right;
+  padding: 20px;
+  color: azure;
+  cursor: pointer;
+  display: none;
+  background: #000;
+}
+
+*{
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body{
+  color: #666;
+  font-family: monospace, Helvetica, Verdana, Geneva, sans-serif;
+  font-size: 16px;
+  background-color:whitesmoke;
+}
+#pagewrap{
+  max-width: 100%;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* main header */
+
+#main, nav, section, footer{
+  margin: 1%;
+}
+
+#main{
+  width: 100%;
+  height: auto;
+  margin: 0 auto 2% auto;
+  background-image: url(imgs/firewatch-pixelated.png);
+  background-size: cover;
+  background-position: 50% 20%;
+  padding-top: 50vh;
+  padding-bottom: 50vh;
+}
+
+#main h1{
+  text-align: center;
+  font-size: 3em;
+}
+/* end of main header */
+
+/* navigation section */
+
+nav{
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  margin: 0 auto;
+  width: 100%;
+  background-color: #222;
+  z-index: 9999;
+}
+
+nav ul{
+  list-style-type: none;
+  text-align: center;
+}
+
+nav ul li{
+  display: inline-block;
+  text-align: center;
+  padding: 20px;
+  height: 2%;
+}
+
+nav ul li a{
+  text-decoration: none;
+  color: white;
+  padding: 20px;
+}
+
+/* left column of first content */
+.left-section{
+  float: left;
+  width: 48%; /* 455/960*/
+  height: auto;
+  padding: 20px;
+  line-height: 1.8;
+  text-align: center;
+}
+
+.left-section h3{
+  text-align: center;
+  padding: 15px;
+}
+/* end of left column of first content */
+
+/* right column of first content */
+.right-section{
+  float: right;
+  width: 48%; /* 455/960*/
+  height: auto;
+  padding: 20px;
+  line-height: 1.8;
+  text-indent: 5px;
+  text-align: center;
+}
+
+.right-section h3{
+  text-align: center;
+  padding: 15px;
+}
+/* end of right column of first content */
+
+/* footer */
+footer{
+  clear: both;
+}
+
+footer p{
+  padding: 30px;
+}
+/* end of footer */
+
+
+/******* MEDIA QUERIES *******/
+
+@media (max-width: 900px){
+  #pagewrap {
+		width: auto;
+		float: none;
+	}
+
+	.left-section {
+		width: auto;
+		float: none;
+		margin: 1%;
+	}
+
+  .right-section{
+    width: auto;
+    float: none;
+    margin: 1%;
+  }
+
+  .imgs{
+    width: 100%;
+    float: none;
+  }
+
+  #left-image, #middle-image{
+    margin: none;
+  }
+
+  nav ul li a{
+    text-align: center;
+    padding: 0;
+    margin: 0;
+  }
+
+}
+
+@media (max-width: 400px){
+  body{
+    font-size: .98em;
+  }
+
+  nav ul li{
+    padding: 5px;
+  }
+}
+
+
+
+nav a.active {
+  font-weight: bold;
+  color: red; /* 你可以根據需要修改顏色 */
+}
+
+
+
+.day{
+  font-size: 2rem;
+  font-weight: bolder;
+  text-align: center;
+  margin: 10rem;
+  white-space: nowrap;
+}
+
+</style>
+
+
+<body>
+    <nav class="nav">
+        <ul>
+          <li><a href="index.html" >首頁</a></li>
+          <li><a href="#day1" id="d1">第一天</a></li>
+          <li><a href="#day2" id="d2">第二天</a></li>
+          <li><a href="#day3" id="d3">第三天</a></li>
+          <li><a href="#day4" id="d4">第四天</a></li>
+          <li><a href="#day5" id="d5">第五天</a></li>
+          <li><a href="#day6" id="d6">第六天</a></li>
+        </ul>
+    </nav>
+
+<div class="day" id="day1">
+  <span>第一天 福岡</span>
+</div>
+
+    <ul class="card-list">
+        <li class="card">
+            <a class="card-image" href="https://kyushu.letsgojp.com/archives/574978/" target="_blank" style="background-image: url(img/d1.jpg);">
+            </a>
+            <a class="card-description" href="" target="_blank">
+                <h2>博多運河城</h2>
+            </a>
+        </li>
+        
+        <li class="card">
+          <a class="card-image" href="https://kyushu.letsgojp.com/archives/574978/" target="_blank" style="background-image: url(img/d12.jpg);">
+          </a>
+          <a class="card-description" href="" target="_blank">
+              <h2>川端通商店街</h2>
+          </a>
+      </li>
+        
+      <li class="card">
+        <a class="card-image" href="https://kyushu.letsgojp.com/archives/574978/" target="_blank" style="background-image: url(img/d13.jpg);">
+        </a>
+        <a class="card-description" href="" target="_blank">
+            <h2>中洲屋台橫丁</h2>
+        </a>
+    </li>
+        
+    <li class="card">
+      <a class="card-image" href="https://www.gltjp.com/zh-hant/directory/item/15419/" target="_blank" style="background-image: url(img/day14.jpg);">
+      </a>
+      <a class="card-description" href="" target="_blank">
+          <h2>樂水園</h2>
+      </a>
+  </li>
+  <li class="card">
+    <a class="card-image" href="https://www.tylinnetravel.tw/ichiran-kyushu-sohonten/" target="_blank" style="background-image: url(img/day15.jpg);">
+    </a>
+    <a class="card-description" href="" target="_blank">
+        <h2>一蘭總本店</h2>
+    </a>
+</li>
+
+    </ul>
+    <div class="day" id="day2">
+      <span>第二天 熊本</span>
+  </div>
+  
+      <ul class="card-list">
+          <li class="card">
+              <a class="card-image" href="https://carolblog.tw/kumamoto-castle/" target="_blank" style="background-image: url(img/day21.jpg);">
+              </a>
+              <a class="card-description" href="" target="_blank">
+                  <h2>熊本城</h2>
+              </a>
+          </li>
+          
+          <li class="card">
+            <a class="card-image" href="https://nigi33.tw/kumamoto-04/" target="_blank" style="background-image: url(img/day22.jpg);">
+            </a>
+            <a class="card-description" href="" target="_blank">
+                <h2>城彩苑</h2>
+            </a>
+        </li>
+          
+        <li class="card">
+          <a class="card-image" href="https://tw.wamazing.com/media/article/a-1337/" target="_blank" style="background-image: url(img/day23.jpg);">
+          </a>
+          <a class="card-description" href="" target="_blank">
+              <h2>下通商店街</h2>
+          </a>
+      </li>
+          
+      <li class="card">
+        <a class="card-image" href="https://kyushu.letsgojp.com/archives/574978/" target="_blank" style="background-image: url(img/map.jpg);">
+        </a>
+        <a class="card-description" href="" target="_blank">
+            <h2>熊本鶴屋 </h2>
+                  </a>
+    </li>
+    <li class="card">
+      <a class="card-image" href="https://carolblog.tw/katsuretsu-tei/" target="_blank" style="background-image: url(img/day24.jpg);">
+      </a>
+      <a class="card-description" href="" target="_blank">
+          <h2>勝烈亭 </h2>
+      </a>
+  </li>
+
+
+          
+      </ul>
+      <div class="day" id="day3">
+        <span>第三天 福岡</span>
+    </div>
+    
+        <ul class="card-list">
+          <li class="card">
+            <a class="card-image" href="https://slowandtravel.com/?p=9807" target="_blank" style="background-image: url(img/day61.jpg);">
+            </a>
+            <a class="card-description" href="" target="_blank">
+                <h2>大濠公園</h2>
+            </a>
+        </li>
+            
+            <li class="card">
+              <a class="card-image" href="https://tw.wamazing.com/media/article/a-853/" target="_blank" style="background-image: url(img/day51.jpg);">
+              </a>
+              <a class="card-description" href="" target="_blank">
+                  <h2>福岡城跡</h2>
+              </a>
+          </li>
+          <li class="card">
+            <a class="card-image" href="https://tripper.tw/starbucks-ohorikouen/" target="_blank" style="background-image: url(img/day54.jpg);">
+            </a>
+            <a class="card-description" href="" target="_blank">
+                <h2>大濠公園星巴克</h2>
+            </a>
+          </li>
+            <li class="card">
+                <a class="card-image" href="https://gojp.tw/fukuoka-tenchika/" target="_blank" style="background-image: url(img/day31.jpg);">
+                </a>
+                <a class="card-description" href="" target="_blank">
+                    <h2>天神地下街</h2>
+                </a>
+            </li>
+            
+            <li class="card">
+              <a class="card-image" href="https://tw.wamazing.com/media/article/a-2017/" target="_blank" style="background-image: url(img/day32.jpg);">
+              </a>
+              <a class="card-description" href="" target="_blank">
+                  <h2>柳橋連合市場</h2>
+              </a>
+          </li>
+            
+
+            
+        </ul>
+        <div class="day" id="day4">
+          <span>第四天 柳州 太宰府</span>
+      </div>
+      
+          <ul class="card-list">
+              <li class="card">
+                  <a class="card-image" href="https://www.crossroadfukuoka.jp/tw/articles/yanagawa-kawakudari" target="_blank" style="background-image: url(img/day41.jpg);">
+                  </a>
+                  <a class="card-description" href="" target="_blank">
+                      <h2>柳川遊船</h2>
+                  </a>
+              </li>
+              
+              <li class="card">
+                <a class="card-image" href="https://itravelblog.net/23243/" target="_blank" style="background-image: url(img/day42.jpg);">
+                </a>
+                <a class="card-description" href="" target="_blank">
+                    <h2>沖端商店街</h2>
+                </a>
+            </li>
+              
+            <li class="card">
+              <a class="card-image" href="https://udn.com/news/story/9658/8177749" target="_blank" style="background-image: url(img/day43.jpg);">
+              </a>
+              <a class="card-description" href="" target="_blank">
+                  <h2>太宰府天滿宮</h2>
+              </a>
+          </li>
+          <li class="card">
+            <a class="card-image" href="https://worldtraveleg.com/wakamatuya/" target="_blank" style="background-image: url(img/day47.jpg);">
+            </a>
+            <a class="card-description" href="" target="_blank">
+                <h2>柳川若松屋鰻魚飯</h2>
+            </a>
+        </li>
+        <li class="card">
+          <a class="card-image" href="https://kyushu.letsgojp.com/archives/574978/" target="_blank" style="background-image: url(img/day49.jpg);">
+          </a>
+          <a class="card-description" href="" target="_blank">
+              <h2>樂雅樂家庭餐廳</h2>
+          </a>
+      </li>
+          
+
+              
+          </ul>
+          <div class="day" id="day5">
+            <span>第五天 福岡</span>
+        </div>
+        
+            <ul class="card-list">
+
+                
+              <li class="card">
+                <a class="card-image" href="https://www.klook.com/zh-TW/blog/fukuoka-tower/" target="_blank" style="background-image: url(img/day62.jpg);">
+                </a>
+                <a class="card-description" href="" target="_blank">
+                    <h2>福岡塔</h2>
+                </a>
+            </li>
+                
+            <li class="card">
+              <a class="card-image" href="https://museum.city.fukuoka.jp/tc/" target="_blank" style="background-image: url(img/day52.jpg);">
+              </a>
+              <a class="card-description" href="" target="_blank">
+                  <h2>福岡博物館</h2>
+              </a>
+          </li>
+          <li class="card">
+            <a class="card-image" href="https://www.niusnews.com/=P1xdmln3" target="_blank" style="background-image: url(img/day53.jpg);">
+            </a>
+            <a class="card-description" href="" target="_blank">
+                <h2>福岡Momochi</h2>
+            </a>
+        </li>
+
+                
+            <div class="day" id="day6">
+              <span>第六天  自由安排</span>
+          </div>    
+
+
+              
+<script>
+$(document).ready(function() {
+  // Smooth scroll for navigation
+  $('nav a').on('click', function(event) {
+    event.preventDefault();
+    var targetId = $(this).attr('href');
+    $('html, body').animate({
+      scrollTop: $(targetId).offset().top
+    }, 1000);
+  });
+
+  // Add 'active' class to the navigation link based on scroll position
+  $(window).on('scroll', function() {
+    var scrollPosition = $(window).scrollTop();
+    $('nav a').each(function() {
+      var targetId = $(this).attr('href');
+      var targetPosition = $(targetId).offset().top - 50; // Offset for fixed nav
+      var targetHeight = $(targetId).outerHeight();
+      
+      if (scrollPosition >= targetPosition && scrollPosition < targetPosition + targetHeight) {
+        $('nav a').removeClass('active');
+        $(this).addClass('active');
+      }
+    });
+  });
+
+  // Trigger scroll event to set active class on page load
+  $(window).trigger('scroll');
+});
+
+
+
+
+
+
+
+
+  </script>
+</body>
+
+</html>
