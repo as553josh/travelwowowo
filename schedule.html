@@ -93,12 +93,6 @@ color: RGB(251, 206, 0);
   box-sizing: border-box;
 }
 
-nav {
-  position: fixed;
-  width: 100%;
-  background-color: #89925e;
-  min-height: 2em;
-}
 
 ul {
   width: 100%;
@@ -159,14 +153,12 @@ body{
 
 /* main header */
 
-#main, nav, section, footer{
-  margin: 1%;
-}
+
 
 #main{
   width: 100%;
   height: auto;
-  margin: 0 auto 2% auto;
+
   background-image: url(imgs/firewatch-pixelated.png);
   background-size: cover;
   background-position: 50% 20%;
@@ -180,35 +172,34 @@ body{
 }
 /* end of main header */
 
-/* navigation section */
 
 nav{
   position: fixed;
   top: 0px;
-  left: 0px;
   margin: 0 auto;
   width: 100%;
+  height: 10%;
   background-color: #222;
   z-index: 9999;
 }
 
-nav ul{
+/* nav ul{
   list-style-type: none;
   text-align: center;
-}
+} */
 
-nav ul li{
+/* nav ul li{
   display: inline-block;
   text-align: center;
   padding: 20px;
   height: 2%;
-}
-
+} */
+/* 
 nav ul li a{
   text-decoration: none;
   color: white;
   padding: 20px;
-}
+} */
 
 /* left column of first content */
 .left-section{
@@ -318,6 +309,9 @@ nav a.active {
   white-space: nowrap;
 }
 
+.everyday >li> a{
+  font-size: 30px;
+}
 
 @media only screen and (max-width: 600px) {
 .everyday >li> a{
@@ -327,13 +321,20 @@ nav a.active {
 
 }
 
+body{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 
 </style>
 
 
 <body>
     <nav class="nav">
-        <ul class="everyday">
+        <ul class="everyday nav">
           <li><a href="index.html" >首頁</a></li>
           <li><a href="#day1" id="d1">第一天</a></li>
           <li><a href="#day2" id="d2">第二天</a></li>
